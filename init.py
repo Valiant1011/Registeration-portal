@@ -1,7 +1,4 @@
 from flask import Flask,render_template,redirect,request,url_for
-import sqlite3
-from flask import current_app,g
-from flask.cli import with_appcontext
 
 app=Flask(__name__) 
 
@@ -22,7 +19,7 @@ def register():
 
 
 		#Send email here
-		
+
 		return redirect(url_for('success',data=value))
 	except:
 		return redirect(url_for('error',data=value))
