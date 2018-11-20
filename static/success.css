@@ -1,0 +1,28 @@
+p
+{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+}
+h2
+{
+    margin-top: 100px;
+    text-align: center;
+    font-size: 40px;
+    color: white;   
+}
+body
+{
+    background-image: url(background.png);
+    background-size: cover;
+}
+input[type=submit]
+{
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    font: Calibri;
+    font-size: 15px;
+    background-blend-mode:color;
+}
