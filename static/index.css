@@ -1,0 +1,70 @@
+#content
+{
+    color:black;
+    margin-top: 100px;
+    margin-left: 40%;
+}
+h1
+{
+    margin-top: 100px;
+    margin-left: 6%;
+    font-size: 3em;
+    color: white;
+}
+p
+{
+    font: calibri;
+    font-size: 22px;
+    color: white;
+}
+input[type=text]
+{
+    width: 300px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 2px solid orange;
+    background-color: transparent;
+    color: white;
+}
+input[type=email]
+{
+    width: 300px;
+    height: 40px;
+    padding-left: 10px;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 2px solid orange;
+    background-color: transparent;
+    color: white;
+}
+input[type=submit]
+{
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    margin-left:110px;
+    font: Calibri;
+    font-size: 15px;
+}
+body
+{
+    background-image: url(background.png) ;
+    background-size: cover
+}
+::placeholder
+{
+    color: white;
+    font-size: 16px;
+}
+: -ms-input-placeholder
+{
+    color: white;
+    font-size: 16px;
+}
+:: -ms-input-placeholder
+{
+    color: white;
+    font-size: 16px;
+}
