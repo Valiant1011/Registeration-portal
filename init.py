@@ -5,7 +5,7 @@ import os
 app=Flask(__name__) 
 contest_name='Kodeathon'
 send_id='prakharp789@gmail.com'
-team_number=1
+user_id=1
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT']=465
@@ -26,15 +26,10 @@ def register():
 			erno=str(request.form['erno'])
 			email=str(request.form['email'])
 			value=erno+'+'+email
-			print erno
-			print email
-			print value
-			
-			user=new_user()
+			user=new_user(user_id)
 			user_password=new_password()
 
-			#Send email here
-			
+			#Email process
 			msg=Message(contest_name,sender=send_id,recipients=[email])
 			message="Hello! Thank you for your "+contest_name+" registeration. Here are your login credentials : \n Username: "+user+ "\n Password: "+user_password
 			msg.body=message
@@ -43,7 +38,7 @@ def register():
 
 
 			#till here
-			team_number=team_number+1
+			user_id+=1#successful insertion locks the previous user name
 			return redirect(url_for('success',data=value))
 		except:
 			return redirect(url_for('error',data=value))
@@ -63,7 +58,7 @@ def add_header(response):
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
-    #This is to disable browser caching in IE and Chrome
+    #This is to disable browser caching in Chrome
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=False)
