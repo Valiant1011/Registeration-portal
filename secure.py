@@ -11,24 +11,10 @@ def new_user():
 	print 'user=',user
 	return user
 
+a=new_user()
+print a
+#send_id=raw_input('Enter sender Email ID:')
+#password=raw_input('Enter Email password:')
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-password='qwer12#$new1'
