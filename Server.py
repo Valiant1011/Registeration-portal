@@ -1,4 +1,4 @@
-from secure import*
+from Security import*
 from flask import Flask,render_template,redirect,request,url_for
 from flask_mail import Mail,Message
 import os
@@ -27,7 +27,6 @@ def register():
 			value=erno+'+'+email
 			user=new_user(user_id)
 			user_password=new_password()
-
 			#Email process
 			msg=Message(contest_name,sender=send_id,recipients=[email])
 			message="Hello! Thank you for your "+contest_name+" registeration. Here are your login credentials : \n Username: "+user+ "\n Password: "+user_password
@@ -41,7 +40,7 @@ def register():
 			return redirect(url_for('success',data=value))
 		except:
 			return redirect(url_for('error',data=value))
-
+		
 @app.route('/success/<data>')
 def success(data):
 	user,email=data.split('+')
@@ -53,11 +52,10 @@ def error(data):
 	return render_template('fail.html',name=user,email_id=email)
 
 @app.after_request
-def add_header(response):
+def add_header(response):	#This is to disable browser caching in Chrome
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
-    #This is to disable browser caching in Chrome
 
 if __name__ == '__main__':
 	app.run(debug=False)
