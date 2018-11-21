@@ -3,7 +3,7 @@ import random
 user_id=1
 
 def new_password(size=6, chars=string.ascii_uppercase + string.digits+string.ascii_lowercase):
-	return ''.join(random.choice(chars) for _ in range(size))
+	return ''.join(random.choice(chars) for _ in range(size)) #tuple comprehension
 
 def new_user():
 	user='team'+str(user_id)
