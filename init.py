@@ -4,12 +4,11 @@ from flask_mail import Mail,Message
 import os
 app=Flask(__name__) 
 contest_name='Kodeathon'
-send_id='prakharp789@gmail.com'
 user_id=1
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT']=465
-app.config['MAIL_USERNAME']='prakharp789@gmail.com'
+app.config['MAIL_USERNAME']=sender_id
 app.config['MAIL_PASSWORD']=password
 app.config['MAIL_USE_TLS']=False
 app.config['MAIL_USE_SSL']=True
