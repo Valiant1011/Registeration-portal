@@ -1,18 +1,14 @@
-from Security import*
 from flask import Flask,render_template,redirect,request,url_for
 from flask_mail import Mail,Message
-import os
+from Security import*
+#from Startup import *
+
 app=Flask(__name__) 
 contest_name='Kodeathon'
+#optimise this 
 user_id=1
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT']=465
-app.config['MAIL_USERNAME']=sender_id
-app.config['MAIL_PASSWORD']=password
-app.config['MAIL_USE_TLS']=False
-app.config['MAIL_USE_SSL']=True
-mail=Mail(app)
+#execfile('Startup.py')
 
 @app.route('/')	 
 def index():
@@ -20,23 +16,33 @@ def index():
 
 @app.route('/register',methods=['POST'])
 def register():
+	value=""
+	global user_id
 	if request.method=='POST':
 		try:
+			print 'abc'
 			erno=str(request.form['erno'])
 			email=str(request.form['email'])
+
 			value=erno+'+'+email
-			user=new_user(user_id)
+			user_name=new_user(user_id)
 			user_password=new_password()
-			#Email process
-			msg=Message(contest_name,sender=send_id,recipients=[email])
-			message="Hello! Thank you for your "+contest_name+" registeration. Here are your login credentials : \n Username: "+user+ "\n Password: "+user_password
+
+			#Try database push here
+			#Email process if record inserted successfully
+			app.config['MAIL_SERVER']='smtp.gmail.com'
+			app.config['MAIL_PORT']=465
+			app.config['MAIL_USERNAME']=sender_id
+			app.config['MAIL_PASSWORD']=password
+			app.config['MAIL_USE_TLS']=False
+			app.config['MAIL_USE_SSL']=True
+			mail=Mail(app)
+			msg=Message(contest_name,sender=sender_id,recipients=[email])
+			message="Hello! Thank you for your "+contest_name+" registeration. Here are your login credentials : \n Username: "+user_name+ "\n Password: "+user_password
 			msg.body=message
 			mail.send(msg)
-			#Do database push here
-
-
 			#till here
-			user_id+=1#successful insertion locks the previous user name
+			user_id+=1 #successful insertion locks the previous user name
 			return redirect(url_for('success',data=value))
 		except:
 			return redirect(url_for('error',data=value))
@@ -58,4 +64,4 @@ def add_header(response):	#This is to disable browser caching in Chrome
     return response
 
 if __name__ == '__main__':
-	app.run(debug=False)
+	app.run(debug=True)
