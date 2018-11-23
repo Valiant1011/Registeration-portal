@@ -1,14 +1,19 @@
 from flask import Flask,render_template,redirect,request,url_for
 from flask_mail import Mail,Message
 from Security import*
-#from Startup import *
+import sqlite3
 
 app=Flask(__name__) 
 contest_name='Kodeathon'
 #optimise this 
 user_id=1
-
-#execfile('Startup.py')
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT']=465
+app.config['MAIL_USERNAME']=sender_id
+app.config['MAIL_PASSWORD']=password
+app.config['MAIL_USE_TLS']=False
+app.config['MAIL_USE_SSL']=True
+mail=Mail(app)
 
 @app.route('/')	 
 def index():
@@ -20,33 +25,33 @@ def register():
 	global user_id
 	if request.method=='POST':
 		try:
-			print 'abc'
+			con=sqlite3.Connection("Database.db")
+			cur=con.cursor()
+			cur.execute("select count(*) from Records")
+			temp=cur.fetchall()
+			user_id=temp[0][0]+1
 			erno=str(request.form['erno'])
 			email=str(request.form['email'])
-
 			value=erno+'+'+email
 			user_name=new_user(user_id)
 			user_password=new_password()
+			#Database push here
+			cur.execute("insert into Records values (?,?,?,?)",(erno,email,user_name,user_password))
+			con.commit()
+			con.close()
 
-			#Try database push here
 			#Email process if record inserted successfully
-			app.config['MAIL_SERVER']='smtp.gmail.com'
-			app.config['MAIL_PORT']=465
-			app.config['MAIL_USERNAME']=sender_id
-			app.config['MAIL_PASSWORD']=password
-			app.config['MAIL_USE_TLS']=False
-			app.config['MAIL_USE_SSL']=True
-			mail=Mail(app)
 			msg=Message(contest_name,sender=sender_id,recipients=[email])
-			message="Hello! Thank you for your "+contest_name+" registeration. Here are your login credentials : \n Username: "+user_name+ "\n Password: "+user_password
+			message="Hello "+erno+"! You have registered successfully for "+contest_name+".\nHere are your login credentials : \n Username: "+user_name+ "\n Password: "+user_password
+			message+="\n\nYou are requested to reach the venue 30 minutes earlier to familiarize yourself with submission platform and contest rules."
 			msg.body=message
 			mail.send(msg)
-			#till here
-			user_id+=1 #successful insertion locks the previous user name
+
+			#user_id+=1 #successful insertion locks the previous user name
 			return redirect(url_for('success',data=value))
 		except:
 			return redirect(url_for('error',data=value))
-		
+
 @app.route('/success/<data>')
 def success(data):
 	user,email=data.split('+')
