@@ -1,9 +1,8 @@
 import sqlite3
-con=sqlite3.connect('Mydb')
+con=sqlite3.connect("Database.db")
 cur=con.cursor()
-#cur.execute('drop table usermail')
-#optimise
-cur.execute('create table if not exists usermail(username varchar2(20),email varchar2(50) PRIMARY KEY)')
-cur.execute('select * from usermail')
-
-print cur.fetchall()
+print 'Opened Database Successfully'
+cur.execute("select * from Records")
+x=cur.fetchall()
+print x
+con.close()
