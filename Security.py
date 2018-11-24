@@ -11,13 +11,3 @@ def new_user(user_id):
 
 sender_id=raw_input('Enter sender Email ID:')
 password=getpass.getpass(prompt='Enter Email Password[ Will not be visible while typing ]:')
-
-
-
-
-
-
-
-
-
-
